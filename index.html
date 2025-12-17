@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kedai Berkat - Makanan Lezat Indonesia</title>
+    <style>
+        /* Reset dan Global Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background: linear-gradient(to bottom, #f9dfdf, #de48c0); min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
+        header { background: linear-gradient(to right, #808080, #331a33); color: rgb(255, 255, 255); padding: 10px 0; position: fixed; width: 100%; top: 0; z-index: 100; }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        header .name { text-align: left; flex: 1; }
+        header .name h2 { margin: 0; font-size: 1.5em; }
+        header .info { text-align: center; flex: 1; }
+        header .info p { font-size: 0.9em; }
+        nav { flex: 1; text-align: right; }
+        nav ul { list-style: none; display: flex; justify-content: flex-end; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { color: rgb(255, 255, 255); text-decoration: none; padding: 10px; transition: background 0.3s; }
+        nav ul li a:hover { background: rgba(255, 255, 255, 0.2); }
+        
+        /* Hero Section */
+        .hero { background: url('https://via.placeholder.com/1200x400?text=Kedai+Berkat') no-repeat center/cover; height: 400px; display: flex; align-items: center; justify-content: center; text-align: center; color: white; margin-top: 70px; }
+        .hero h1 { font-size: 3em; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        
+
+        /* Tombol CTA */
+        .cta-button {
+        background: #8B4513; /* Warna kontras sesuai tema */
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background 0.3s, transform 0.3s;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .cta-button:hover {
+        background: #A0522D; /* Warna hover lebih gelap */
+        transform: scale(1.05); /* Efek zoom ringan */
+        }
+        @media (max-width: 768px) {
+        .cta-button { font-size: 1em; padding: 12px 25px; } /* Responsif untuk mobile */
+        }
+        
+        /* Menu Cards */
+        .menu { padding: 50px 0; }
+        .menu h2 { text-align: center; margin-bottom: 30px; }
+        .menu h3 { text-align: center; margin: 40px 0 20px 0; font-size: 1.8em; color: #8B4513; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 15px; }
+        .card-content h3 { margin-bottom: 10px; }
+        .card-content p { margin-bottom: 15px; }
+        .card-content .price { font-weight: bold; color: #8B4513; }
+        
+        /* Footer */
+        footer { background: #333; color: white; text-align: center; padding: 20px 0; }
+        
+        /* Responsive */
+        @media (max-width: 768px) { nav ul { flex-direction: column; } .hero h1 { font-size: 2em; } header .container { flex-direction: column; } header .name, header .info, nav { text-align: center; flex: none; } }
+        
+        /* Hidden sections for multi-page simulation */
+        .page { display: none; }
+        .page.active { display: block; }
+        
+        /* Gallery Slider */
+        .gallery { padding: 50px 50px; text-align: center; }
+        .slider { position: relative; max-width: 600px; margin: 0 auto; overflow: hidden; }
+        .slides { display: flex; transition: transform 0.5s; }
+        .slide { min-width: 100%; }
+        .slide img { width: 100%; height: 300px; object-fit: cover; }
+        .prev, .next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer; }
+        .prev { left: 0; }
+        .next { right: 0; }
+        
+       /* Contact Form */
+        .contact { padding: 50px 0; }
+        form { max-width: 500px; margin: 40px auto; }
+        form input, form textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        form button { background: #8B4513; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; }
+        form button:hover { background: #A0522D; }
+
+        /* About Section Adjustments */
+        .about-content { margin-top: 20px; }
+        .about-content p { margin-bottom: 20px; line-height: 1.8; }
+        
+        /* Social Links */
+        .social-links { text-align: center; margin-top: 20px; }
+        .social-links a { display: inline-block; margin: 30px 20px; padding: 10px 20px; background: #8B4513; color: white; text-decoration: none; border-radius: 5px; transition: background 0.3s; }
+        .social-links a:hover { background: #A0522D; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="name">
+                <h2>KEDAI BERKAT</h2>
+            </div>
+            <div class="info">
+                <p>Jln Kopo, Komplek Kopo Permai 1 Blok J No 4, Bandung</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('menu')">Menu</a></li>
+                    <li><a href="#" onclick="showPage('about')">Tentang</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Kontak</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div>
+                <h1>(^.^)Selamat Datang di Kedai Berkat!(^.^)</h1>
+                <h3>Rasakan cita rasa autentik Indonesia.</h3>
+            <button class="cta-button" onclick="showPage('contact')">Untuk Pemesanan Klik Disini</button>
+            </div>
+        </div>
+        <div class="menu container">
+            <h2>BEST SELLER!</h2>
+            <div class="cards">
+                <div class="card">
+                    <img src="Ayam Goreng Pejantan.jpeg"/250x200?text=Ayam+Goreng+Pejantan alt="Ayam Goreng Pejantan Bumbu Padang">
+                    <div class="card-content">
+                        <h3>Ayam Pejantan Bumbu Padang</h3>
+                        <p>Ayam goreng renyah dengan bumbu Padang yang asin dan gurih.</p>
+                        <p class="price">Rp 20.000</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="Gepuk.jpeg"/250x200?text=Gepuk alt="Gepuk">
+                    <div class="card-content">
+                        <h3>Gepuk</h3>
+                        <p>Daging sapi empuk dengan bumbu rempah khas Sunda.</p>
+                        <p class="price">Rp 20.000</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="Soto Bandung.jpeg"/250x200?text=Soto+Bandung alt="Soto Bandung">
+                    <div class="card-content">
+                        <h3>Soto Bandung</h3>
+                        <p>Soto daging sapi dengan kuah bening dan lobak segar.</p>
+                        <p class="price">Rp 20.000</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="Nasi Telur Ceplok Ponti.jpeg"/250x200?text=Nasi+Telur+Ceplok+Ponti alt="Nasi Telor Ceplok Ponti">
+                    <div class="card-content">
+                        <h3>Nasi Telor Ceplok Ponti</h3>
+                        <p>
+                            Nasi dengan telur ceplok dengan sambal Pontianak yang sedikit pedas dan gurih.
+                        </p>
+                        <p class="price">Rp 10.000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Page -->
+    <section id="menu" class="page">
+        <div class="container">
+            <p> AWAS</p>
+            <P> KETAGGIHAN</P>   
+            <br>
+            <h2>Daftar Menu Lengkap</h2>
+            <p>Kami menyajikan berbagai hidangan Indonesia.</p> 
+            <div class="menu">
+            <h2>Paket Komplit</h2>     
+                <div class="cards">
+                    <div class="card">
+                        <img src="Paket A.jpeg"/250x200?text=Paket+A alt="Paket A">
+                        <div class="card-content">
+                            <h3>Paket A</h3>
+                            <p>Paket mantap Nasi Ayam Goreng TG, Tahu, Tempe, dan Sambel.</p>
+                            <p class="price">Rp 22.500</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Paket B.jpeg"/250x200?text=Paket+B alt="Paket B">
+                        <div class="card-content">
+                            <h3>Paket B</h3>
+                            <p>Paket mantap Nasi, Ayam Goreng Pejantan, Tahu, Tempe, dan Sambel.</p>
+                            <p class="price">Rp 27.500</p>
+                        </div>
+                    </div>
+                </div> 
+            <br>
+            <h2>Makanan Berat</h2>    
+                <div class="cards">
+                    <div class="card">
+                        <img src="Nasi goreng Pete.jpeg"/250x200?text=Nasi+Goreng+Pete alt="Nasi Goreng Pete">
+                        <div class="card-content">
+                            <h3>Nasi Goreng Pete</h3>
+                            <p>Nasi goreng dengan potongan baso dan pete yang lezat dan gurih.</p>
+                            <p class="price">Rp 20.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Nasi Goreng Biasa.jpeg"/250x200?text=Nasi+Goreng+Biasa alt="Nasi Goreng Biasa">
+                        <div class="card-content">
+                            <h3>Nasi Goreng Biasa</h3>
+                            <p>Nasi goreng dengan potongan baso yang gurih dan lezat.</p>
+                            <p class="price">Rp 15.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Nasi Goreng Sea Food.jpeg"/250x200?text=Nasi+Goreng+Sea+Food alt="Nasi Goreng Sea Food">
+                        <div class="card-content">
+                            <h3>Nasi Goreng Sea Food</h3>
+                            <p>Nasi goreng dengan campuran baso ikan, dan udang yang lezat dan gurih.</p>
+                            <p class="price">Rp 20.000</p>
+                        </div>
+                    </div>              
+                    <div class="card">
+                        <img src="Gepuk.jpeg"/250x200?text=Gepuk alt="Gepuk">
+                        <div class="card-content">
+                            <h3>Gepuk</h3>
+                            <p>Daging sapi empuk dengan bumbu rempah khas Sunda.</p>
+                            <p class="price">Rp 20.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Soto Bandung.jpeg"/250x200?text=Soto+Bandung alt="Soto Bandung">
+                        <div class="card-content">
+                            <h3>Soto Bandung</h3>
+                            <p>Soto daging sapi dengan kuah bening dan lobak segar.</p>
+                            <p class="price">Rp 20.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Nasi Telur Ceplok Ponti.jpeg"/250x200?text=Nasi+Telur+Ceplok+Ponti alt="Nasi Telor Ceplok Ponti">
+                        <div class="card-content">
+                            <h3>Nasi Telor Ceplok Ponti</h3>
+                            <p>Nasi dengan telur ceplok dengan sambal Pontianak yang sedikit pedas dan gurih.</p>
+                            <p class="price">Rp 10.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Ayam Goreng Pejantan.jpeg"/250x200?text=Ayam+Goreng+Pejantan alt="Ayam Goreng Pejantan">
+                        <div class="card-content">
+                            <h3>Ayam Goreng Pejantan</h3>
+                            <p>Ayam Goreng yang digoreng dengan rempah bumbu Padang.</p>
+                            <p class="price">Rp 20.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Ayam Goreng TG.jpeg"/250x200?text=Ayam+Goreng+TG alt="Ayam Goreng TG">
+                        <div class="card-content">
+                            <h3>Ayam Goreng TG</h3>
+                            <p>Ayam goreng yang digoreng dengan rempah bumbu Padang.</p>
+                            <p class="price">Rp 15.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Cumi Cabe Ijo.jpeg"/250x200?text=Cumi+Cabe+Ijo alt="Cumi Cabe Ijo">
+                        <div class="card-content">
+                            <h3>Baby Cumi Cabe Ijo</h3>
+                            <p>Baby Cumi segar yang di tumis dengan cabai hijau segar.</p>
+                            <p class="price">Rp 25.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Sayur Asem.jpeg"/250x200?text=Sayur+Asem alt="Sayur Asem">
+                        <div class="card-content">
+                            <h3>Sayur Asem</h3>
+                            <p>Sayur asem yang disajikan dengan tangkil, jagung, waluh, dan kacang.</p>
+                            <p class="price">Rp 10.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Nasi Putih.jpeg"/250x200?text=Nasi+Putih alt="Nasi Putih">
+                        <div class="card-content">
+                            <h3>Nasi Putih</h3>
+                            <p>Nasi putih hangat, cocok sebagai pendamping hidangan utama.</p>
+                            <p class="price">Rp 4.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Perkedel Kentang.jpeg"/250x200?text=Perkedel+Kentang alt="Perkedel Kentang">
+                        <div class="card-content">
+                            <h3>Perkedel Kentang</h3>
+                            <p>Kentang yang dihaluskan dan digoreng dengan tambahan bumbu.</p>
+                            <p class="price">Rp 4.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Perkedel Jagung.jpeg"/250x200?text=Perkedel+Jagung alt="Perkedel Jagung">
+                        <div class="card-content">
+                            <h3>Perkedel Jagung</h3>
+                            <p>Jagung yang dihaluskan dan digoreng dengan tambahan bumbu.</p>
+                            <p class="price">Rp 4.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Tahu Goreng Cabe Garam.jpeg"/250x200?text=Tahu+Goreng+Cabe+Garam alt="Tahu Goreng Cabe Garam">
+                        <div class="card-content">
+                            <h3>Tahu Goreng Cabe Garam</h3>
+                            <p>Tahu yang digoreng dengan tambahan cabai dan taburan garam.</p>
+                            <p class="price">Rp 15.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Tahu Goreng.jpeg"/250x200?text=Tahu+Goreng alt="Tahu Goreng">
+                        <div class="card-content">
+                            <h3>Tahu Goreng</h3>
+                            <p>Tahu yang digoreng dengan tambahan bumbu.</p>
+                            <p class="price">Rp 3.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Tempe Goreng.jpeg"/250x200?text=Tempe+Goreng alt="Tempe Goreng">
+                        <div class="card-content">
+                            <h3>Tempe Goreng</h3>
+                            <p>Tempe yang digoreng dengan tambahan bumbu.</p>
+                            <p class="price">Rp 3.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Cumi Asin dan Jambal Roti.jpeg"/250x200?text=Cumi+Asin+dan+Jambal+Roti alt="Cumi Asin dan Jambal Roti">
+                        <div class="card-content">
+                            <h3>Cumi Asin dan Jambal Roti</h3>
+                            <p>Cumi asin yang disajikan dengan ikan jambal roti.</p>
+                            <p class="price">Rp 5.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Kentang Goreng Sosis.jpeg"/250x200?text=Kentang+Goreng+Sosis alt="Kentang Goreng Sosis">
+                        <div class="card-content">
+                            <h3>Kentang Goreng Sosis</h3>
+                            <p>Kentang dan Sosis yang digoreng dengan tambahan saus sambal.</p>
+                            <p class="price">Rp 15.000</p>
+                        </div>
+                    </div>
+                </div>
+            <br>
+            <h2>Minuman</h2>
+                <div class="cards">
+                    <div class="card">
+                        <img src="Ice Lycee Tea.jpeg"/250x200?text=Ice+Lycee+Tea alt="Ice Lycee Tea">
+                        <div class="card-content">
+                            <h3>Ice Lycee Tea</h3>
+                            <p>Es Leci Teh manis dingin yang menyegarkan.</p>
+                            <p class="price">Rp 10.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Ice Tea.jpeg"/250x200?text=Ice+Tea alt="Ice Tea">
+                        <div class="card-content">
+                            <h3>Ice Tea</h3>
+                            <p>Teh manis dingin yang menyegarkan.</p>
+                            <p class="price">Rp 4.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Susu coklat.jpeg"/250x200?text=Susu+coklat alt="Susu coklat">
+                        <div class="card-content">
+                            <h3>Susu coklat</h3>
+                            <p>Susu milo bubuk dengan tambahan coklat.</p>
+                            <p class="price">Rp 13.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Susu Soda.jpeg"/250x200?text=Susu+Soda alt="Susu Soda">
+                        <div class="card-content">
+                            <h3>Susu Soda</h3>
+                            <p>Susu bubuk manis dengan tambahan soda.</p>
+                            <p class="price">Rp 10.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="root beer float.jpeg"/250x200?text=root+beer+float alt="Root Beer Float">
+                        <div class="card-content">
+                            <h3>Root Beer Float</h3>
+                            <p>Es krim dengan sirup root beer.</p>
+                            <p class="price">Rp 20.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Yogurt Melon.jpeg"/250x200?text=Yogurt+Melon alt="Yogurt Melon">
+                        <div class="card-content">
+                            <h3>Yogurt Melon</h3>
+                            <p>Yogurt dengan tambahan perasa buah melon.</p>
+                            <p class="price">Rp 10.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="Yogurt Strawberry.jpeg"/250x200?text=Yogurt+Strawberry alt="Yogurt Strawberry">
+                        <div class="card-content">
+                            <h3>Yogurt Strawberry</h3>
+                            <p>Yogurt dengan tambahan perasa stroberi.</p>
+                            <p class="price">Rp 10.000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h2>Menu spesial Catering dan Tumpeng</h2>
+            <p>Kami juga menyediakan layanan Catering dan Nasi Tumpeng untuk berbagai acara seperti ulang tahun, pernikahan, arisan, dan acara kantor. 
+               Dengan pilihan menu yang beragam dan harga yang bersaing, kami siap membantu membuat acara Anda lebih istimewa dengan hidangan lezat dari Kedai Berkat.
+            </p>
+            <br> 
+            <div class="menu">
+               <div class="cards">
+                    <div class="card">
+                        <img src="Tumpeng 3.jpeg"/250x600?text=Catering+1 alt="Tumpeng Ayam atau Gepuk">
+                        <div class="card-content">
+                            <h3>Tumpeng Ayam atau Gepuk</h3>
+                            <p>Nasi Tumpeng Ayam Goreng <strong>atau</strong> Gepuk + pilih 4 lauk lainnya (Kering Tempe, Orek Tempe Cabe Ijo, Sambel Goreng Kentang Ati Ampela, Acar Kuning, Perkedel Kentang, Perkedel jagung, Telur Balado, Soun Goreng, Mie goreng, Bihun Goreng)</p>
+                            <p class="price">Mulai dari Rp 40.000</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="card">
+                        <img src="Tumpeng 1.jpeg"/250x600?text=Tumpeng+1 alt="Tumpeng Ayam dan Gepuk">
+                        <div class="card-content">
+                            <h3>Tumpeng Ayam dan Gepuk</h3>
+                            <p>Nasi Tumpeng Ayam <strong>dan</strong> Gepuk + pilih 4 lauk lainnya (Kering Tempe, Orek Tempe Cabe Ijo, Sambel Goreng Kentang Ati Ampela, Acar Kuning, Perkedel Kentang, Perkedel jagung, Telur Balado, Soun Goreng, Mie goreng, Bihun Goreng)</p>
+                            <p class="price">Mulai dari Rp 60.000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>        
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="page">
+        <div class="container">
+            <p>KOSONG</p>
+            <P>AWAS</P>
+            <br>
+            <h1>Tentang Kedai Berkat</h1>
+            <p>
+                Kedai Berkat adalah tempat makan yang menyajikan makanan Indonesia autentik dengan bahan segar dan resep yang konsisten. Didirikan sejak Mei 2025,                 
+                Kedai Berkat menyajikan makanan dengan cita rasa seperti masakan ibu dirumah. Dengan kualitas bahan yang fresh dan higienis pastinya,
+                menjadikan hidangan yang sehat dan nikmat untuk dikonsumsi oleh berbagai kalangan dan umur.
+            </p>
+            <p>
+                Kami juga memberikan fasilitas Free Wifi yang tentunya sangat cocok untuk dijadikan tempat nongkrong bareng teman teman.
+                Kami sangat senang hati melayani anda dengan sepenuh hati dan memberikan pengalaman kuliner yang tak terlupakan.
+                Terima kasih telah memilih Kedai Berkat sebagai destinasi kuliner Anda. Kami sangat menantikan kedatangan Anda kembali!
+            </p>
+            <div class="gallery">
+                <h3>Galeri</h3>
+                <br>
+                <video width="600px" height="300px" controls> 
+                    <source src="Kedai Berkat.mp4" type="video/mp4">
+                    <source src="movie.ogg" type="video/ogg">
+                </video>
+                <br> 
+                <div class="slider">
+                    <div class="slides">
+                        <div class="slide"><img src="Tumpeng 1.jpeg"/1200x600?text alt="Tumpeng"></div>
+                        <div class="slide"><img src="Tumpeng 2.jpeg"/1200x600?text alt="Tumpeng"></div>
+                        <div class="slide"><img src="Tumpeng 3.jpeg"/1200x600?text alt="Tumpeng"></div>
+                        <div class="slide"><img src="Catering 1.jpeg"/1200x600?text alt="Catering"></div>
+                        <div class="slide"><img src="Place.jpeg"/1200x600?text alt="Place"></div>
+                    </div>
+                    <button class="prev" onclick="prevSlide()">&#10094;</button>
+                    <button class="next" onclick="nextSlide()">&#10095;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page">
+        <div class="container">
+            <p>KOSONG</p>
+            <p>AWAS</p>
+            <br>
+            <h2>Untuk pemesanan Kontak dan Hubungi kami di bawah ini.</h2>
+            <div class="social-links">
+                <a href="https://wa.me/6289530038939">WhatsApp</a>
+                <a href="https://gofood.link/a/PwaY9Ah/">GoFood</a>
+                <a href="https://www.tiktok.com/@kedai_berkat?_r=1&_t=ZS-92GlaUBxtZJ">TikTok</a>
+            </div>
+            <br>
+            <h3>Jika berkenan silahkan beri kami masukan dan saran di bawah sini. Terima kasih telah berkunjung!^.^</h3>
+            <br>
+            <form id="contactForm">
+                <input type="text" name="name" placeholder="Nama" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" placeholder="Pesan" required></textarea>
+                <button type="submit">Kirim</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Kedai Berkat. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        let slideIndex = 0;
+        function showSlides() {
+            const slides = document.querySelector('.slides');
+            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+        function nextSlide() {
+            slideIndex = (slideIndex + 1) % 5;
+            showSlides();
+        }
+        function prevSlide() {
+            slideIndex = (slideIndex - 1 + 5) % 5;
+            showSlides();
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Pesan terkirim! Terima kasih.');
+        });
+    </script>
+</body>
+</html>
